@@ -663,7 +663,7 @@ function render() {
     overlay.style.left = "0";
     overlay.style.width = "100%";
     overlay.style.height = "100%";
-    overlay.style.backgroundColor = "rgba(15, 23, 42, 0.85)";
+    overlay.style.backgroundColor = "rgba(15, 23, 42, 0.5)";
     overlay.style.zIndex = "0";
     overlay.style.borderRadius = "10px";
     box.appendChild(overlay);
