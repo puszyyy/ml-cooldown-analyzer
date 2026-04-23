@@ -1,0 +1,624 @@
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  padding: 10px;
+  margin: 0;
+}
+
+/* CATEGORY */
+#categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+#categories button {
+  padding: 6px;
+  background: #1e293b;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+/* ===== HERO GRID - ITO ANG BINAGO KO (ML GALLERY STYLE) ===== */
+#heroes {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.hero {
+  position: relative;
+  cursor: pointer;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: none;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  
+  /* Remove flex properties that might interfere */
+  display: block;
+  text-align: center;
+}
+
+.hero:hover {
+  transform: translateY(-4px);
+  border-color: #475569;
+  background: #0f172a;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.hero img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1.3;
+  object-fit: cover;
+  display: block;
+  border-bottom: none;
+  border-radius: 7px 7px 0 0;
+}
+
+.hero p {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 12px 4px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 1px 1px 3px black;
+  background: linear-gradient(to top, #000000dd, transparent);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 0 0 7px 7px;
+}
+
+/* ===== LINEUP / ENEMY SECTION (WALANG BINAGO) ===== */
+.enemy {
+  background: #1e293b;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  position: relative;
+  overflow: visible;
+  border: 1px solid #334155;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Para sa text readability sa ibabaw ng background image */
+.enemy h3,
+.enemy h4,
+.enemy span,
+.enemy button:not(.skill-btn):not(.refresh-btn) {
+  position: relative;
+  z-index: 2;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+/* Remove button mas visible */
+.enemy .remove {
+  position: relative;
+  z-index: 2;
+  background: #dc2626;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.enemy .remove:hover {
+  background: #ef4444;
+}
+
+/* SKILLS */
+.skill-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 0;
+}
+
+.skill-row.items-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+  margin: 8px 0;
+}
+
+.skill-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: none;
+  background: #334155;
+}
+
+/* TEXT */
+.ready {
+  color: #4ade80;
+}
+
+.cooldown {
+  color: #f87171;
+}
+
+/* REMOVE */
+.remove {
+  background: red;
+  border: none;
+  color: white;
+  padding: 4px;
+  border-radius: 5px;
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+#spellOptions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+#spellOptions button {
+  margin: 0;
+  padding: 8px;
+  background: #1e293b;
+  border: 1px solid #475569;
+  color: white;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+#spellOptions button:hover {
+  background: #334155;
+  border-color: #64748b;
+}
+
+#spellOptions .close-btn {
+  grid-column: 1 / -1;
+  margin-top: 10px;
+  background: #dc2626 !important;
+  border: none !important;
+  padding: 10px !important;
+  font-weight: bold;
+}
+
+#spellOptions .close-btn:hover {
+  background: #ef4444 !important;
+}
+
+.kill-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.kill-btn:hover {
+  background: #ef4444;
+}
+
+.refresh-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: #475569;
+  color: white;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+.refresh-btn:hover {
+  background: #64748b;
+}
+
+.item-selector {
+  margin-top: 10px;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.item-selector-toggle {
+  width: 100%;
+  background: #0f172a;
+  border: none;
+  color: white;
+  text-align: left;
+  padding: 10px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.item-selector-content {
+  background: #111827;
+  padding: 10px;
+}
+
+.item-selector-content.hidden {
+  display: none;
+}
+
+.item-selector-group {
+  margin-bottom: 10px;
+}
+
+.item-selector-row {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.item-selector-row span {
+  margin-left: 8px;
+}
+
+
+
+.item-selector-toggle {
+  font-weight: 700;
+}
+
+.skill-row input {
+  transform: scale(1.2);
+  margin-left: 5px;
+}
+
+/* MOBILE & TABLET RESPONSIVE */
+@media (max-width: 1024px) {
+  #heroes {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  #categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  #heroes {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  #categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero p {
+    font-size: 11px;
+    padding: 8px 4px 6px;
+  }
+  .skill-btn {
+    width: 30px;
+    height: 30px;
+  }
+  #categories button {
+    font-size: 11px;
+    padding: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 5px;
+  }
+  #heroes {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+  #categories {
+    grid-template-columns: 1fr;
+  }
+  #categories button {
+    font-size: 12px;
+    padding: 8px;
+  }
+  .hero p {
+    font-size: 10px;
+  }
+  .skill-row {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .skill-btn {
+    width: 28px;
+    height: 28px;
+  }
+  .refresh-btn {
+    width: 28px;
+    height: 28px;
+  }
+  .item-selector-toggle {
+    padding: 8px;
+    font-size: 12px;
+  }
+  .item-selector-content {
+    padding: 8px;
+  }
+}
+
+
+/* ===== RESPONSIVE HERO GRID PARA SA PHONE/TABLET ===== */
+
+/* Tablet (iPad, malalaking phone) */
+@media (max-width: 1024px) {
+  #heroes {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 10px;
+  }
+  
+  .hero p {
+    font-size: 12px;
+    padding: 10px 3px 6px;
+  }
+}
+
+/* Malaking phone (iPhone Plus, Android phablet) */
+@media (max-width: 768px) {
+  #heroes {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px;
+  }
+  
+  .hero {
+    border-radius: 6px;
+  }
+  
+  .hero img {
+    aspect-ratio: 1 / 1.35; /* Medyo mas matangkad sa phone */
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .hero p {
+    font-size: 11px;
+    padding: 8px 2px 5px;
+    letter-spacing: 0.3px;
+  }
+  
+  /* Search bar adjustment */
+  #heroes + div, 
+  div:has(> input[type="text"]) {
+    margin: 8px 0 !important;
+  }
+  
+  input[type="text"] {
+    padding: 8px !important;
+    font-size: 13px !important;
+  }
+}
+
+/* Maliit na phone (iPhone SE, maliliit na Android) */
+@media (max-width: 480px) {
+  body {
+    padding: 5px;
+  }
+  
+  #heroes {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px;
+  }
+  
+  .hero {
+    border-radius: 5px;
+  }
+  
+  .hero img {
+    aspect-ratio: 1 / 1.4;
+    border-radius: 4px 4px 0 0;
+  }
+  
+  .hero p {
+    font-size: 10px;
+    padding: 6px 2px 4px;
+    font-weight: 600;
+  }
+  
+  /* Category buttons */
+  #categories {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 5px;
+  }
+  
+  #categories button {
+    padding: 8px 4px;
+    font-size: 11px;
+  }
+  
+  /* Search bar compact */
+  input[type="text"] {
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+  }
+  
+  button:has(✕) {
+    padding: 6px 12px !important;
+  }
+}
+
+/* Sobrang liit na phone (280px-360px width) */
+@media (max-width: 360px) {
+  #heroes {
+    gap: 4px;
+  }
+  
+  .hero p {
+    font-size: 9px;
+    padding: 5px 1px 3px;
+  }
+  
+  #categories button {
+    font-size: 10px;
+    padding: 6px 2px;
+  }
+}
+
+/* Landscape mode sa phone */
+@media (max-width: 768px) and (orientation: landscape) {
+  #heroes {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 6px;
+  }
+  
+  .hero img {
+    aspect-ratio: 1 / 1.2; /* Mas flat sa landscape */
+  }
+  
+  .hero p {
+    font-size: 10px;
+    padding: 6px 2px 4px;
+  }
+}
+
+/* Mobile Dropdown Styling */
+.mobile-dropdown button:hover {
+  background: #2d3e50 !important;
+}
+
+.mobile-dropdown input[type="checkbox"] {
+  accent-color: #00ff88;
+  cursor: pointer;
+}
+
+.mobile-dropdown ::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mobile-dropdown ::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+.mobile-dropdown ::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+/* Kill Trigger Button */
+.kill-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  text-shadow: 1px 1px 2px black;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.kill-btn:hover {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.4);
+}
+
+.kill-btn:active {
+  transform: scale(0.98);
+}
+
+.skill-row.items-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.skill-row.items-row .skill-btn {
+  flex-shrink: 0;
+}
+
+.skill-row.items-row span {
+  flex: 1;
+  text-align: center;
+}
+
+.skill-row.items-row .refresh-btn {
+  flex-shrink: 0;
+}
+
+/* Emblem Modal Styling */
+#emblemModal .modal-content {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#emblemOptions button {
+  transition: all 0.2s ease !important;
+}
+
+#emblemOptions button:hover {
+  transform: scale(1.02);
+}
+
+#inspireOption label {
+  transition: all 0.2s ease !important;
+}
+
+#confirmEmblemBtn {
+  transition: all 0.2s ease !important;
+}
+
+#confirmEmblemBtn:hover {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4) !important;
+}
+
+#scrollToTopBtn {
+  bottom: 20px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  
+}
