@@ -3,35 +3,132 @@
 <head>
   <meta charset="UTF-8">
   <title>ML Cooldown Tracker</title>
-  
-  <!-- PROTECTION SCRIPT -->
-  <script>
-  // Disable Right Click
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    return false;
-  });
-
-  // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S
-  document.addEventListener('keydown', function(e) {
-    if (e.keyCode === 123) { e.preventDefault(); return false; }
-    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) { e.preventDefault(); return false; }
-    if (e.ctrlKey && e.shiftKey && e.keyCode === 74) { e.preventDefault(); return false; }
-    if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
-    if (e.ctrlKey && e.keyCode === 83) { e.preventDefault(); return false; }
-  });
-
-  // Disable Console
-  setInterval(function() {
-    console.log = function() {};
-    console.warn = function() {};
-    console.error = function() {};
-    console.clear = function() {};
-    console.table = function() {};
-  }, 1000);
-  </script>
-  
   <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <style>
+    /* ===== MOBILE OPTIMIZATION ===== */
+    @media (max-width: 768px) {
+      .hero-card, .hero-item {
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1rem;
+      }
+      
+      .ulti-icon, .spell-icon, .skill-icon {
+        width: 64px !important;
+        height: 64px !important;
+        min-width: 64px;
+      }
+      
+      .cooldown-status, .skill-status, .ready-text {
+        font-size: 1.2rem;
+        padding: 0.5rem 0;
+      }
+      
+      .ult-level button, .level-btn {
+        padding: 12px 16px;
+        font-size: 1.1rem;
+        min-width: 60px;
+      }
+      
+      .dashboard, .heroes-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      body, .container, .main {
+        padding: 8px !important;
+        margin: 0 !important;
+      }
+      
+      input[type="text"], .search-hero {
+        font-size: 1.1rem !important;
+        padding: 12px !important;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      
+      button, .clickable, [onclick] {
+        min-height: 48px;
+        min-width: 48px;
+      }
+    }
+    
+    /* ===== MOBILE OPTIMIZATION PARA SA LINEUP (DASHBOARD MODE) ===== */
+    @media (max-width: 768px) {
+      .enemy {
+        padding: 16px !important;
+        margin-bottom: 16px !important;
+      }
+      
+      .enemy button:not(.skill-btn):not(.refresh-btn):not(.kill-btn) {
+        min-height: 44px !important;
+        min-width: 50px !important;
+        font-size: 16px !important;
+        padding: 10px 12px !important;
+      }
+      
+      .skill-btn {
+        width: 55px !important;
+        height: 55px !important;
+        min-width: 55px !important;
+      }
+      
+      .refresh-btn {
+        width: 45px !important;
+        height: 45px !important;
+        font-size: 18px !important;
+      }
+      
+      .skill-row span, .ready, .cooldown {
+        font-size: 16px !important;
+        padding: 8px 0 !important;
+      }
+      
+      .skill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px !important;
+        margin: 12px 0 !important;
+        align-items: center;
+      }
+      
+      .skill-row.items-row {
+        gap: 12px !important;
+      }
+      
+      .kill-btn {
+        padding: 14px !important;
+        font-size: 16px !important;
+        margin-top: 16px !important;
+      }
+      
+      .enemy h3 {
+        font-size: 18px !important;
+        margin-bottom: 12px !important;
+      }
+      
+      .mobile-dropdown > button {
+        padding: 14px !important;
+        font-size: 15px !important;
+      }
+      
+      .mobile-dropdown input[type="checkbox"] {
+        width: 24px !important;
+        height: 24px !important;
+      }
+      
+      .mobile-dropdown label, .mobile-dropdown span {
+        font-size: 14px !important;
+      }
+      
+      .mobile-dropdown img {
+        width: 40px !important;
+        height: 40px !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -72,13 +169,50 @@
   transition: transform 0.2s, box-shadow 0.2s;
 ">↑</button>
 
-<!-- Dynamic Script Loading (para hindi makita sa Sources tab agad) -->
+<script src="script.js"></script>
+
+<!-- Mobile Optimization Script -->
 <script>
-(function() {
-  var script = document.createElement('script');
-  script.src = 'script.js';
-  document.head.appendChild(script);
-})();
+  function applyMobileOptimizations() {
+    const enemies = document.querySelectorAll('.enemy');
+    enemies.forEach(enemy => {
+      enemy.classList.add('mobile-hero-card');
+      const allBtns = enemy.querySelectorAll('button');
+      allBtns.forEach(btn => {
+        if (btn.textContent === '1' || btn.textContent === '2' || btn.textContent === '3') {
+          btn.classList.add('level-btn');
+        }
+      });
+      const skillRows = enemy.querySelectorAll('.skill-row');
+      skillRows.forEach(row => {
+        row.classList.add('mobile-skill-row');
+      });
+    });
+    
+    const searchInput = document.querySelector('input[type="text"]');
+    if (searchInput) searchInput.classList.add('search-hero');
+    
+    const categoryBtns = document.querySelectorAll('#categories button');
+    categoryBtns.forEach(btn => btn.classList.add('category-btn'));
+  }
+  
+  const lineupObserver = new MutationObserver(function() {
+    applyMobileOptimizations();
+  });
+  
+  window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(applyMobileOptimizations, 100);
+    if (document.getElementById('lineup')) {
+      lineupObserver.observe(document.getElementById('lineup'), { 
+        childList: true, 
+        subtree: true 
+      });
+    }
+  });
+  
+  window.addEventListener('resize', function() {
+    applyMobileOptimizations();
+  });
 </script>
 
 </body>
