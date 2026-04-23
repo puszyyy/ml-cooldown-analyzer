@@ -622,3 +622,10 @@ body {
   font-size: 20px;
   
 }
+
+/* Mas visible ang hero image sa mobile */
+@media (max-width: 768px) {
+  .enemy-overlay {
+    background-color: rgba(15, 23, 42, 0.45) !important;
+  }
+}

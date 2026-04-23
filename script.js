@@ -658,13 +658,14 @@ function render() {
     box.style.isolation = "isolate";
     
     const overlay = document.createElement("div");
+    overlay.className = "enemy-overlay"; // ← idagdag ito
     overlay.style.position = "absolute";
     overlay.style.top = "0";
     overlay.style.left = "0";
     overlay.style.width = "100%";
     overlay.style.height = "100%";
-    overlay.style.backgroundColor = "rgba(15, 23, 42, 0.5)";
-    overlay.style.zIndex = "0";
+    overlay.style.backgroundColor = "rgba(15, 23, 42, 0.85)";
+    overlay.style.zIndex = "1";
     overlay.style.borderRadius = "10px";
     box.appendChild(overlay);
 
